@@ -2,13 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
-import type {
-  DragBehavior,
-  D3DragEvent,
-  Selection,
-  SimulationNodeDatum,
-  SimulationLinkDatum,
-} from "d3";
+import type { DragBehavior, D3DragEvent, SimulationLinkDatum } from "d3";
 import {
   calculateEulerianTrail,
   Node,
