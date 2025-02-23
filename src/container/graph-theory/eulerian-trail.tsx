@@ -9,7 +9,15 @@ import {
   Edge,
 } from "@/lib/algorithm/eulerian-trail";
 
-const EulerianTrailVisualization: React.FC = () => {
+interface EulerianTrailVisualizationProps {
+  nodes?: Node[];
+  edges?: Edge[];
+}
+
+const EulerianTrailVisualization: React.FC<EulerianTrailVisualizationProps> = ({
+  nodes: initialNodes,
+  edges: initialEdges,
+}) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const width = 800;
   const height = 600;
@@ -17,9 +25,8 @@ const EulerianTrailVisualization: React.FC = () => {
   useEffect(() => {
     if (!svgRef.current) return;
 
-    // 샘플 데이터 - 오일러 트레일이 존재하는 그래프
-    // 정점 1과 5가 홀수 차수를 가지며, 나머지는 짝수 차수를 가집니다.
-    const nodes: Node[] = [
+    // 기본 데이터 또는 전달받은 데이터 사용
+    const nodes: Node[] = initialNodes || [
       { id: "1" }, // 시작점 (차수: 3)
       { id: "2" }, // 중간점 (차수: 4)
       { id: "3" }, // 중간점 (차수: 4)
@@ -27,7 +34,7 @@ const EulerianTrailVisualization: React.FC = () => {
       { id: "5" }, // 끝점 (차수: 3)
     ];
 
-    const edges: Edge[] = [
+    const edges: Edge[] = initialEdges || [
       { source: "1", target: "2", id: "e1" },
       { source: "1", target: "3", id: "e2" },
       { source: "1", target: "4", id: "e3" },
@@ -214,7 +221,6 @@ const EulerianTrailVisualization: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">Eulerian Trail Visualization</h1>
       <svg
         ref={svgRef}
         className="border border-gray-300 rounded-lg bg-white"
